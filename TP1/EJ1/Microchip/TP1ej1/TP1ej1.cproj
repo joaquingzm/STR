@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>TP1</AssemblyName>
-    <Name>TP1</Name>
-    <RootNamespace>TP1</RootNamespace>
+    <AssemblyName>TP1ej1</AssemblyName>
+    <Name>TP1ej1</Name>
+    <RootNamespace>TP1ej1</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
