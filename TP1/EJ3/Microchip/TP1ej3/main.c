@@ -1,6 +1,6 @@
 #define F_CPU 16000000UL
 #include <avr/io.h>
-#include <util/delay.h>
+// #include <util/delay.h>
 #include "adc.h"
 #include "display_latch.h"
 
@@ -18,6 +18,6 @@ int main(void) {
 		// enviar valor a displays
 		display_mostrar_hex(valor_adc);
 
-		 _delay_ms(50); // Tiempo entre lecturas para no saturar el bus
+		// _delay_ms(50); // Tiempo entre lecturas para no saturar el bus
 	}
 }
