@@ -193,7 +193,6 @@ static void crearSemaforos(void)
 
 static void Tarea1_A(void *parametro)
 {
-    (void)parametro;
     for (;;)
     {
         /* Esperar mi turno; las otras tareas esperan en sus semaforos. */
@@ -208,7 +207,6 @@ static void Tarea1_A(void *parametro)
 
 static void Tarea2_A(void *parametro)
 {
-    (void)parametro;
     for (;;)
     {
         /* Esperar mi turno; las otras tareas esperan en sus semaforos. */
@@ -223,7 +221,6 @@ static void Tarea2_A(void *parametro)
 
 static void Tarea3_A(void *parametro)
 {
-    (void)parametro;
     for (;;)
     {
         /* Esperar mi turno; las otras tareas esperan en sus semaforos. */
@@ -255,7 +252,6 @@ void secuenciaA(void)
 
 static void Tarea1_B(void *parametro)
 {
-    (void)parametro;
     for (;;)
     {
         /* Esperar mi turno; las otras tareas esperan en sus semaforos. */
@@ -270,7 +266,6 @@ static void Tarea1_B(void *parametro)
 
 static void Tarea2_B(void *parametro)
 {
-    (void)parametro;
     uint8_t impresiones = 0; /* Cuenta solo las impresiones de este ciclo. */
     for (;;)
     {
@@ -298,7 +293,6 @@ static void Tarea2_B(void *parametro)
 }
 static void Tarea3_B(void *parametro)
 {
-    (void)parametro;
     for (;;)
     {
         /* Esperar mi turno; las otras tareas esperan en sus semaforos. */
@@ -330,7 +324,6 @@ void secuenciaB(void)
 
 static void Tarea1_C(void *parametro)
 {
-    (void)parametro;
     for (;;)
     {
         /* Esperar mi turno; las otras tareas esperan en sus semaforos. */
@@ -345,7 +338,6 @@ static void Tarea1_C(void *parametro)
 
 static void Tarea2_C(void *parametro)
 {
-    (void)parametro;
     for (;;)
     {
         /* Esperar mi turno; las otras tareas esperan en sus semaforos. */
@@ -360,7 +352,6 @@ static void Tarea2_C(void *parametro)
 
 static void Tarea3_C(void *parametro)
 {
-    (void)parametro;
     uint8_t impresiones = 0; /* Cuenta solo las impresiones de este ciclo. */
     for (;;)
     {
@@ -406,9 +397,9 @@ int main(void)
     UART_Init(9600); /* ATmega328P a 16 MHz; terminal 9600 baudios, 8N1. */
 
  
-    secuenciaA();
+    // secuenciaA();
     // secuenciaB();
-    // secuenciaC();
+    secuenciaC();
 
     vTaskStartScheduler();
     errorFatal(); 
