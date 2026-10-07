@@ -91,7 +91,7 @@ int main(void)
         "Task1",
         TASK_STACK_SIZE,
         NULL,
-        0,
+        1,
         NULL
     );
 

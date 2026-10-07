@@ -8,7 +8,7 @@
  *-----------------------------------------------------------*/
 
 #define configCPU_CLOCK_HZ               16000000UL 
-#define configTICK_RATE_HZ               62  
+#define configTICK_RATE_HZ               ( (TickType_t) 10  )
 
 /*-----------------------------------------------------------
  * Scheduler
@@ -20,6 +20,7 @@
 #define configUSE_PREEMPTION             1 //Hablita preemptive, una tarea de mayor prioridad puede obtener el uso de la CPU si otra de menor prioridad se esta ejecutando.
 #define configUSE_IDLE_HOOK              0 //FreeRTOS crea automáticamente una tarea llamada Idle, de prioridad 0. Puede ejecutarse cuando no hay tareas de mayor prioridad listas.
 #define configUSE_TICK_HOOK              0 //Función adicional en cada tick
+#define configUSE_TIME_SLICING			 1
 
 /*-----------------------------------------------------------
  * Memoria
@@ -27,7 +28,7 @@
 
 #define configSUPPORT_DYNAMIC_ALLOCATION  1
 #define configSUPPORT_STATIC_ALLOCATION   0
-#define configTOTAL_HEAP_SIZE     1048 
+#define configTOTAL_HEAP_SIZE     1304
 
 /*-----------------------------------------------------------
  * Tasks
