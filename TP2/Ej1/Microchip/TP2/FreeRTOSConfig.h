@@ -8,7 +8,7 @@
  *-----------------------------------------------------------*/
 
 #define configCPU_CLOCK_HZ               16000000UL 
-#define configTICK_RATE_HZ               62  
+#define configTICK_RATE_HZ               1000U
 
 /*-----------------------------------------------------------
  * Scheduler
