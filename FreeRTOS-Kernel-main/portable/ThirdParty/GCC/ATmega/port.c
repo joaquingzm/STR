@@ -47,6 +47,15 @@
     #warning "Watchdog Timer used for scheduler."
     #define portSCHEDULER_ISR    WDT_vect
 
+#elif defined( portUSE_TIMER1 )
+/* Hardware constants for 16-bit Timer1, using compare match A in CTC mode. */
+    #warning "Timer1 used for scheduler."
+    #define portSCHEDULER_ISR                       TIMER1_COMPA_vect
+    #define portTIMER1_CTC_MODE                     ( ( uint8_t ) _BV( WGM12 ) )
+    #define portTIMER1_PRESCALE_1024                ( ( uint8_t ) ( _BV( CS12 ) | _BV( CS10 ) ) )
+    #define portTIMER1_CLOCK_PRESCALER              ( ( uint32_t ) 1024 )
+    #define portTIMER1_COMPARE_MATCH_A_INTERRUPT    ( ( uint8_t ) _BV( OCIE1A ) )
+
 #elif defined( portUSE_TIMER0 )
 /* Hardware constants for Timer0. */
     #warning "Timer0 used for scheduler."
@@ -734,6 +743,35 @@ void vPortYieldFromTick( void )
         ucLowByte = portTIMSK;
         ucLowByte |= portCOMPARE_MATCH_A_INTERRUPT_ENABLE;
         portTIMSK = ucLowByte;
+    }
+
+#elif defined( portUSE_TIMER1 )
+
+/*
+ * Setup Timer1 compare match A to generate a tick interrupt.
+ * Tick frequency uses the same configCPU_CLOCK_HZ and configTICK_RATE_HZ
+ * values as the Timer0 implementation, with a 1024 prescaler.
+ */
+    static void prvSetupTimerInterrupt( void )
+    {
+        uint32_t ulCompareMatch;
+        uint8_t ucLowByte;
+
+        ulCompareMatch = configCPU_CLOCK_HZ / configTICK_RATE_HZ;
+        ulCompareMatch /= portTIMER1_CLOCK_PRESCALER;
+        ulCompareMatch -= ( uint32_t ) 1;
+
+        /* Timer1 has a 16-bit compare register. */
+        OCR1A = ( uint16_t ) ulCompareMatch;
+
+        /* CTC mode, clock divided by 1024. */
+        TCCR1A = 0;
+        TCCR1B = portTIMER1_CTC_MODE | portTIMER1_PRESCALE_1024;
+
+        /* Enable compare match A interrupt. */
+        ucLowByte = TIMSK1;
+        ucLowByte |= portTIMER1_COMPARE_MATCH_A_INTERRUPT;
+        TIMSK1 = ucLowByte;
     }
 
 #endif /* if defined( portUSE_WDTO ) */
