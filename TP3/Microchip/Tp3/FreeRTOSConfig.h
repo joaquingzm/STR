@@ -1,7 +1,7 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 #define configCPU_CLOCK_HZ                 16000000UL
-#define configTICK_RATE_HZ                 67U // Ver si cambiamos a 62, si total van a ser 16ms
+#define configTICK_RATE_HZ                 62U // Ver si cambiamos a 62, si total van a ser 16ms
 #define configTICK_TYPE_WIDTH_IN_BITS      TICK_TYPE_WIDTH_16_BITS
 #define configUSE_PREEMPTION               1
 #define configUSE_TIME_SLICING             1

@@ -13,13 +13,17 @@ LA LIBRERIA DE FREERTOS PORQUE TOTAL NUNCA DA 15MS EXACTOS JIJU
 
 */
 
+#define F_CPU 16000000UL
+
 #include <avr/io.h>
 #include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
 #include "task.h"
 #include <util/delay.h>
 #include <stdio.h>
+#include "uart.h"
 
-#define tick_ms 15 // ver si cambiamos a 16 si total va a dar eso con el wdt
+#define tick_ms 16 
 #define unidad_tiempo_tick 4
 
 typedef struct {
@@ -67,21 +71,82 @@ volatile MetricasTarea metricaD = {0, 0, 0, 0};
 
 #endif
 
+void TareaA(void *parametros);
+void TareaB(void *parametros);
+void TareaC(void *parametros);
+void TareaD(void *parametros);
+
+void ejercicio3(void);
+void ejercicio4(void);
 
 int main(void)
 {
 	
 	// Configurar PB0, PB1, PB2 y PB3 como salidas (1 en DDRB)
-	DDRB |= (1 << PB0) | (1 << PB1) | (1 << PB2) | (1 << PB3);
+	DDRB |= (1 << PORTB0) | (1 << PORTB1) | (1 << PORTB2) | (1 << PORTB3);
 
 	// Garantizar estado inicial BAJO en todos los pines (0 en PORTB)
-	PORTB &= ~((1 << PB0) | (1 << PB1) | (1 << PB2) | (1 << PB3)); 
-    for (;;)
-    {
-        /* Sin l?gica de aplicaci?n por ahora. */
-    }
+	PORTB &= ~((1 << PORTB0) | (1 << PORTB1) | (1 << PORTB2) | (1 << PORTB3)); 
+	
+	ejercicio3();
+	
+
+	vTaskStartScheduler();
+
+    while(1){}
 }
 
+void ejercicio3(void)
+{
+	xTaskCreate(
+	TareaD,            // 1. Nombre de la función de la tarea
+	"TareaD",                // 2. Nombre descriptivo (texto corto para depurar)
+	configMINIMAL_STACK_SIZE, // 3. Tamaño de la pila (Stack) en bytes/words
+	NULL,                     // 4. Parámetro pasado a la tarea (NULL si no usas nada)
+	1,                        // 5. Prioridad de la tarea (0 a configMAX_PRIORITIES-1)
+	NULL                      // 6. Manejador/Handle de la tarea (NULL si no necesitas manipularla luego)
+	);
+		
+}
+
+void ejercicio4(void)
+{
+	xTaskCreate(
+	TareaA,            // 1. Nombre de la función de la tarea
+	"TareaA",                // 2. Nombre descriptivo (texto corto para depurar)
+	configMINIMAL_STACK_SIZE, // 3. Tamaño de la pila (Stack) en bytes/words
+	NULL,                     // 4. Parámetro pasado a la tarea (NULL si no usas nada)
+	1,                        // 5. Prioridad de la tarea (0 a configMAX_PRIORITIES-1)
+	NULL                      // 6. Manejador/Handle de la tarea (NULL si no necesitas manipularla luego)
+	);
+	
+	xTaskCreate(
+	TareaB,            // 1. Nombre de la función de la tarea
+	"TareaB",                // 2. Nombre descriptivo (texto corto para depurar)
+	configMINIMAL_STACK_SIZE, // 3. Tamaño de la pila (Stack) en bytes/words
+	NULL,                     // 4. Parámetro pasado a la tarea (NULL si no usas nada)
+	1,                        // 5. Prioridad de la tarea (0 a configMAX_PRIORITIES-1)
+	NULL                      // 6. Manejador/Handle de la tarea (NULL si no necesitas manipularla luego)
+	);
+	
+	xTaskCreate(
+	TareaC,            // 1. Nombre de la función de la tarea
+	"TareaC",                // 2. Nombre descriptivo (texto corto para depurar)
+	configMINIMAL_STACK_SIZE, // 3. Tamaño de la pila (Stack) en bytes/words
+	NULL,                     // 4. Parámetro pasado a la tarea (NULL si no usas nada)
+	1,                        // 5. Prioridad de la tarea (0 a configMAX_PRIORITIES-1)
+	NULL                      // 6. Manejador/Handle de la tarea (NULL si no necesitas manipularla luego)
+	);
+	
+	xTaskCreate(
+	TareaD,            // 1. Nombre de la función de la tarea
+	"TareaD",                // 2. Nombre descriptivo (texto corto para depurar)
+	configMINIMAL_STACK_SIZE, // 3. Tamaño de la pila (Stack) en bytes/words
+	NULL,                     // 4. Parámetro pasado a la tarea (NULL si no usas nada)
+	1,                        // 5. Prioridad de la tarea (0 a configMAX_PRIORITIES-1)
+	NULL                      // 6. Manejador/Handle de la tarea (NULL si no necesitas manipularla luego)
+	);
+}
 
 void TareaA(void *parametros){
 	TickType_t ult_llamado = xTaskGetTickCount();
@@ -89,7 +154,7 @@ void TareaA(void *parametros){
 		PORTB |= (1<<PORTB0);
 		_delay_ms(A_C*unidad_tiempo_tick*tick_ms);
 		PORTB &= ~(1 << PORTB0);
-		xTaskDelayUntil(&ult_llamado, A_PD*unidad_tiempo_tick);
+		vTaskDelayUntil(&ult_llamado, A_PD*unidad_tiempo_tick);
 	}
 }
 
@@ -100,7 +165,7 @@ void TareaB(void *parametros){
 		PORTB |= (1 << PORTB1);
 		_delay_ms(B_C * unidad_tiempo_tick * tick_ms);
 		PORTB &= ~(1 << PORTB1);
-		xTaskDelayUntil(&ult_llamado, B_PD * unidad_tiempo_tick);
+		vTaskDelayUntil(&ult_llamado, B_PD * unidad_tiempo_tick);
 	}
 }
 
@@ -111,7 +176,7 @@ void TareaC(void *parametros){
 		PORTB |= (1 << PORTB2);
 		_delay_ms(C_C * unidad_tiempo_tick * tick_ms);
 		PORTB &= ~(1 << PORTB2);
-		xTaskDelayUntil(&ult_llamado, C_PD * unidad_tiempo_tick);
+		vTaskDelayUntil(&ult_llamado, C_PD * unidad_tiempo_tick);
 	}
 }
 
@@ -122,7 +187,7 @@ void TareaD(void *parametros){
 		PORTB |= (1 << PORTB3);
 		_delay_ms(D_C * unidad_tiempo_tick * tick_ms);
 		PORTB &= ~(1 << PORTB3);
-		xTaskDelayUntil(&ult_llamado, D_PD * unidad_tiempo_tick);
+		vTaskDelayUntil(&ult_llamado, D_PD * unidad_tiempo_tick);
 	}
 }
 
@@ -132,7 +197,7 @@ void TareaTerminal(void *parametros) {
 
 	for (;;) {
 		// Enviar reporte cada 3 segundos (200 ticks = 3000 ms)
-		xTaskDelayUntil(&ult_llamado, pdMS_TO_TICKS(3000));
+		vTaskDelayUntil(&ult_llamado, pdMS_TO_TICKS(3000));
 
 		// Lectura segura de métricas
 		taskENTER_CRITICAL();
@@ -167,28 +232,6 @@ void TareaTerminal(void *parametros) {
 	}
 }
 
-void UART_Init(void) {
-	// Configurar baudrate a 9600
-	UBRR0H = 0;
-	UBRR0L = 103;
-
-	// Habilitar transmisor (TX)
-	UCSR0B = (1 << TXEN0);
-
-	// Formato de cuadro: 8 bits de datos, 1 bit de parada, sin paridad
-	UCSR0C = (1 << UCSZ01) | (1 << UCSZ00);
-}
-
-void UART_SendChar(char c) {
-	while (!(UCSR0A & (1 << UDRE0))); // Esperar a que el buffer esté vacío
-	UDR0 = c;
-}
-
-void UART_SendString(const char *str) {
-	while (*str) {
-		UART_SendChar(*str++);
-	}
-}
 
 void ActualizarMetricas(volatile MetricasTarea *m, TickType_t t_teorico, TickType_t t_activacion, TickType_t t_fin, TickType_t plazo_ticks) {
 	m->activaciones++;

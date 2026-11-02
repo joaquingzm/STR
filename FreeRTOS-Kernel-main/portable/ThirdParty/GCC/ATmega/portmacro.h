@@ -96,17 +96,9 @@ typedef uint8_t        UBaseType_t;
 
 /* Architecture specifics. */
 
-/* System Tick - Scheduler timer.
- * configUSE_TIMER1 can select the 16-bit Timer1 from FreeRTOSConfig.h.
- * Otherwise the existing watchdog/Timer0 selection is preserved.
+/* System Tick  - Scheduler timer
+ * Prefer to use the enhanced Watchdog Timer, but also Timer0 is ok.
  */
-
-// -----------------------------------------------------------------------------------------------------------------------------
-
-// #define portUSE_TIMER1    /* use the 16-bit Timer1 for xTaskIncrementTick */
-
-// ----------------------------------------------------------------------------------------------------------------------------- */
-
 
 #if defined( WDIE ) && defined( WDIF ) /* If Enhanced WDT with interrupt capability is available */
 
