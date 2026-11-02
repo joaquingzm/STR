@@ -20,3 +20,6 @@ Project Backups/
 
 # --- Archivos temporales ---
 *.zip
+
+
+.vscode/
