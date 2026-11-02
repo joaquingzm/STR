@@ -1,9 +1,13 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Tp3", "Tp3.cproj", "{1D75DDF5-E225-4604-BF97-AB29E7338745}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2381015D-7BDB-433C-923A-856F815BB806}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\FreeRTOS-Kernel-main\portable\ThirdParty\GCC\ATmega\portmacro.h = ..\..\..\FreeRTOS-Kernel-main\portable\ThirdParty\GCC\ATmega\portmacro.h
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,5 +24,3 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
-
-

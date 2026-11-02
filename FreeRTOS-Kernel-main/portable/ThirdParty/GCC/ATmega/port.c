@@ -745,13 +745,16 @@ void vPortYieldFromTick( void )
         portTIMSK = ucLowByte;
     }
 
-#elif defined( portUSE_TIMER1 )
+// -----------------------------------------------------------------------------------------------------------------------------
+
+// #elif defined( portUSE_TIMER1 )
 
 /*
  * Setup Timer1 compare match A to generate a tick interrupt.
  * Tick frequency uses the same configCPU_CLOCK_HZ and configTICK_RATE_HZ
  * values as the Timer0 implementation, with a 1024 prescaler.
  */
+/*
     static void prvSetupTimerInterrupt( void )
     {
         uint32_t ulCompareMatch;
@@ -762,19 +765,21 @@ void vPortYieldFromTick( void )
         ulCompareMatch -= ( uint32_t ) 1;
 
         /* Timer1 has a 16-bit compare register. */
-        OCR1A = ( uint16_t ) ulCompareMatch;
+        //OCR1A = ( uint16_t ) ulCompareMatch;
 
         /* CTC mode, clock divided by 1024. */
-        TCCR1A = 0;
-        TCCR1B = portTIMER1_CTC_MODE | portTIMER1_PRESCALE_1024;
+       // TCCR1A = 0;
+       // TCCR1B = portTIMER1_CTC_MODE | portTIMER1_PRESCALE_1024;
 
         /* Enable compare match A interrupt. */
-        ucLowByte = TIMSK1;
-        ucLowByte |= portTIMER1_COMPARE_MATCH_A_INTERRUPT;
-        TIMSK1 = ucLowByte;
-    }
+     //   ucLowByte = TIMSK1;
+     //   ucLowByte |= portTIMER1_COMPARE_MATCH_A_INTERRUPT;
+      //  TIMSK1 = ucLowByte;
+   // }
 
-#endif /* if defined( portUSE_WDTO ) */
+// -----------------------------------------------------------------------------------------------------------------------------
+
+#endif 
 
 /*-----------------------------------------------------------*/
 

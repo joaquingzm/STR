@@ -52,8 +52,8 @@ void Task1(void *pvParameters)
     while (1)
     {
         UART_SendString("Task 1\r\n");
-		//taskYIELD(); 
-        //vTaskDelay)(1000/portTICK_PERIOD_MS);
+		taskYIELD(); 
+        //vTaskDelay(1000/portTICK_PERIOD_MS);
     }
 }
 
@@ -64,7 +64,7 @@ void Task2(void *pvParameters)
     while (1)
     {
         UART_SendString("Task 2\r\n");
-		//taskYIELD(); 
+		taskYIELD(); 
         //vTaskDelay(2000/portTICK_PERIOD_MS);
     }
 }
@@ -75,7 +75,7 @@ void Task3(void *pvParameters)
     while (1)
     {
         UART_SendString("Task 3\r\n");
-		//taskYIELD(); 
+		taskYIELD(); 
         //vTaskDelay(3000/portTICK_PERIOD_MS);
     }
 }
@@ -86,6 +86,15 @@ int main(void)
 	
     UART_Init(9600);
 
+	xTaskCreate(
+		Task2,
+		"Task2",
+		TASK_STACK_SIZE,
+		NULL,
+		1,
+		NULL
+	);
+
     xTaskCreate(
         Task1,
         "Task1",
@@ -95,14 +104,7 @@ int main(void)
         NULL
     );
 
-    xTaskCreate(
-        Task2,
-        "Task2",
-        TASK_STACK_SIZE,
-        NULL,
-        1,
-        NULL
-    );
+    
 
     xTaskCreate(
         Task3,
