@@ -4,7 +4,7 @@
 #define configTICK_RATE_HZ                 62U // Ver si cambiamos a 62, si total van a ser 16ms
 #define configTICK_TYPE_WIDTH_IN_BITS      TICK_TYPE_WIDTH_16_BITS
 #define configUSE_PREEMPTION               1
-#define configUSE_TIME_SLICING             1
+#define configUSE_TIME_SLICING             0
 #define configMAX_PRIORITIES               6 
 #define configMINIMAL_STACK_SIZE           128
 #define configMAX_TASK_NAME_LEN            8

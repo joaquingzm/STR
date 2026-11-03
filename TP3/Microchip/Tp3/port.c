@@ -681,7 +681,7 @@ void vPortYieldFromTick( void )
 
     portRESTORE_CONTEXT();
 
-    __asm__ __volatile__ ( "ret" );
+    __asm__ __volatile__ ( "reti" );
 }
 /*-----------------------------------------------------------*/
 
